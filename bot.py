@@ -167,7 +167,7 @@ async def upload_file(c: Client, m: Message):
         try:
           obj_name = f"{file_id}/{os.path.basename(file_path)}"
           # boto3 doesn't support async callback for file uploads
-          bucket.upload_file(file_path, obj_name, ExtraArgs={"ACL": "public-read", "Expires": time_localize(datetime.datetime.now()) + datetime.timedelta(hours=config["max_keep_hours"])})
+          bucket.upload_file(file_path, obj_name, ExtraArgs={"ACL": "public-read"})
           obj_url = f"{config['s3_dl_base_url']}/{urllib.parse.quote(obj_name)}"
           await tempmsg.delete()
           for o in bucket.objects.filter(Prefix=file_id):
