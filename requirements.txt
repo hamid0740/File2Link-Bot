@@ -1,0 +1,5 @@
+boto3==1.26.41
+jdatetime==4.1.0
+pyrogram==2.0.93
+PyYAML==6.0
+TgCrypto==1.2.5

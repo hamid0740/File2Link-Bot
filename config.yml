@@ -1,0 +1,17 @@
+tg_api_id: 000000 # Type: int / taken from https://my.telegram.org
+tg_api_hash: "xxxxxxx" # Type: str / taken from https://my.telegram.org
+tg_bot_token: "xxxxxxx:xxxxxxxxxxxxxxxxxx" # Type: str / taken from @BotFather
+bot_username: "Username" # Type: str / set in @BotFather
+admins: # Type: list / only use user numeric id / items: int
+- 12345678
+vip_users: # Type: list / only use user numeric id / items: int
+- 98765432
+timezone: "Continent/Capital" # Type: str / set timezone
+use_jalali_date: true # Type: bool / use jalali (shamsi) calendar
+max_file_size: [10, 300] # Type: list, maximum size in MB / item1: int, for normal users / item2: int, for admins & vips
+max_keep_hours: 6 # Type: int, maximum hours to keep files
+s3_endpoint_url: "https://examplestorage.com" # Type: str / your storage endpoint
+s3_access_key: "xxxxx-xxxxx-xxxxx" # Type: str / your storage access key
+s3_secret_key: "xxxxxxxxxx" # Type: str / your storage secret key
+s3_bucket_name: "xxxxx" # Type: str / name of the bucket you want to files upload in
+s3_dl_base_url: "https://xxxxx.examplestorage.com"
