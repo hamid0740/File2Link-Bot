@@ -7,13 +7,13 @@ import dateutil
 import os
 import time
 import urllib.parse
+# Telegram
+from pyrogram import Client, filters, enums, idle
+from pyrogram.types import Message
 # Enable logging
 import logging
 logging.basicConfig(format="%(asctime)s [%(levelname)s] %(message)s", level=logging.INFO, datefmt="%Y/%m/%d %H:%M:%S")
 logger = logging.getLogger(__name__)
-# Telegram
-from pyrogram import Client, filters, enums
-from pyrogram.types import Message
 # Defining global values
 config = yaml.safe_load(open("config.yml", "r", encoding="utf-8"))
 messages = yaml.safe_load(open("messages.yml", "r", encoding="utf-8"))
@@ -211,6 +211,8 @@ async def error_msg(c: Client, m: Message):
 def main():
   del_files_s3()
   app.run()
+  idle()
+  app.stop()
   
 # On start
 if __name__ == "__main__":
