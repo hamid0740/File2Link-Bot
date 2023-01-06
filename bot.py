@@ -5,7 +5,7 @@ import datetime
 import jdatetime
 import dateutil
 import os
-import asyncio
+import time
 import urllib.parse
 # Enable logging
 import logging
@@ -162,7 +162,8 @@ async def upload_file(c: Client, m: Message):
       max_size = config["max_file_size"][0]
     if (file_size / (1024**2)) <= max_size:
       try:
-        file_path = await m.download(progress=dl_progress, progress_args=[tempmsg])
+        dl_start_time = time.time()
+        file_path = await m.download(progress=dl_progress, progress_args=(tempmsg, dl_start_time))
         await tempmsg.edit(messages["file_upload_tempmsg"])
         try:
           obj_name = f"{file_id}/{os.path.basename(file_path)}"
@@ -192,13 +193,13 @@ async def upload_file(c: Client, m: Message):
       await m.reply(messages["file_size_error"] % humanize(max_size * 1024**2), quote=True)
 
 # Calback Function: Track file download progress
-async def dl_progress(current, total, tempmsg):
-  prcnt = round(current * 100 / total, 1)
-  prgrs_info = f"{humanize(current)} / {humanize(total)} ({prcnt}%)"
-  full, empty = round(prcnt / 5), 20 - round(prcnt / 5)
-  prgrs_bar = "".join([messages["progress_full_bar"] for i in range(full)] + [messages["progress_empty_bar"] for i in range(empty)])
-  await tempmsg.edit(messages["file_download_tempmsg"] % (prgrs_info, prgrs_bar))
-  await asyncio.sleep(4)
+async def dl_progress(current, total, tempmsg, start_time):
+  if round(time.time() - start_time) % 4 == 0:
+    prcnt = round(current * 100 / total, 1)
+    prgrs_info = f"{humanize(current)} / {humanize(total)} ({prcnt}%)"
+    full, empty = round(prcnt / 5), 20 - round(prcnt / 5)
+    prgrs_bar = "".join([messages["progress_full_bar"] for i in range(full)] + [messages["progress_empty_bar"] for i in range(empty)])
+    await tempmsg.edit(messages["file_download_tempmsg"] % (prgrs_info, prgrs_bar))
 
 # When user sends anything but file
 @app.on_message(filters.private & filters.incoming & ~filters.text & ~filters.document & ~filters.video & ~filters.photo & ~filters.animation & ~filters.audio & ~filters.voice & ~filters.video_note)
