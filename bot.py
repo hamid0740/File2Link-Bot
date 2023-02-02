@@ -228,7 +228,7 @@ async def upload_file_cmd(c: Client, m: Message):
 
 # Calback Function: Track file download progress
 async def dl_progress(current, total, tempmsg, start_time):
-  if round(time.time() - start_time) % 4 == 0:
+  if round((time.time() - start_time) % 5.00) == 0 or current == total:
     prcnt = round(current * 100 / total, 1)
     prgrs_info = f"{humanize(current)} / {humanize(total)} ({prcnt}%)"
     full, empty = round(prcnt / 5), 20 - round(prcnt / 5)

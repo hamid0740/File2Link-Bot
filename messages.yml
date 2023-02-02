@@ -23,12 +23,6 @@ not_file_error: |
   🎧 موسیقی
   🎙 ویس
   🤳 ویدیو نوت
-log_msg: |
-  🗃 فایل جدید!
-  
-  👤 نام کاربر: %s
-  🔢 آیدی عددی: <code>%s</code>
-  🆔 یوزرنیم: %s
 file_check_tempmsg: "⏳️ در حال بررسی فایل شما..."
 file_download_tempmsg: |
   📥 در حال دانلود فایل شما...
